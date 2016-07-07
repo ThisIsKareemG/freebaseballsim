@@ -1,0 +1,59 @@
+USE CASE 0
+----------
+Type nothing and press submit.
+
+*EXPECTED:
+'Please enter a login name.' message is displayed.  Password and Re-enter
+Password fields are cleared.
+
+USE CASE 1
+----------
+Leave the Login Name field blank, and type something into the Password field.
+Press submit.
+
+*EXPECTED:
+'Please enter a login name.' message is displayed.  Password and Re-enter
+Password fields are cleared.
+
+USE CASE 2
+----------
+Type something into the Login Name field, and leave the Password field blank.
+Press submit.
+
+*EXPECTED:
+'Please enter a password.' message is displayed.  Password and Re-enter
+Password fields are cleared.
+
+USE CASE 3
+----------
+Type something into the Login Name field and the Password field.  Leave the
+Re-enter Password field blank.  Press submit.
+
+*EXPECTED:
+'Passwords don't match.' message is displayed.  Password and Re-enter
+Password fields are cleared.
+
+USE CASE 4
+----------
+Type something into the Login Name field.  Type something into the Password
+field and type something different into the Re-enter Password field.  Press
+submit.
+
+*EXPECTED:
+'Passwords don't match.' message is displayed.  Password and Re-enter
+Password fields are cleared.
+
+USE CASE 5
+----------
+a) Type 'test' without the single quotes into the Login Name, Password, and
+	Re-enter password fields.  Press submit.
+
+*EXPECTED:
+'You have successfully created an account! Click here to select a team.'
+message is displayed.
+
+b) Go back to the signup.pl page and repeat the steps in part a).
+
+*EXPECTED:
+'Login name already exists.' message is displayed.  Password and Re-enter
+Password fields are cleared.

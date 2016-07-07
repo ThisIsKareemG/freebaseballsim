@@ -1,0 +1,5 @@
+CREATE TABLE t_league (
+  league_id integer NOT NULL PRIMARY KEY autoincrement,
+  league_name text NOT NULL,
+  league_date text NOT NULL
+);

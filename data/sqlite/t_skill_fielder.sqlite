@@ -1,0 +1,16 @@
+CREATE TABLE t_skill_fielder (
+  skill_id integer NOT NULL primary key autoincrement,
+  player_id integer NOT NULL unique,
+  range integer NOT NULL,
+  arm integer NOT NULL,
+  field integer NOT NULL,
+  one double,
+  two double,
+  three double,
+  four double,
+  five double,
+  six double,
+  seven double,
+  eight double,
+  nine double
+);

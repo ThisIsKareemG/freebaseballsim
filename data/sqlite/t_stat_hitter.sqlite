@@ -1,0 +1,21 @@
+CREATE TABLE t_stat_hitter (
+  stat_id integer NOT NULL primary key autoincrement,
+  player_id integer NOT NULL,
+  team_id integer NOT NULL,
+  year integer NOT NULL,
+  g integer default 0,
+  ab integer default 0,
+  bb integer default 0,
+  h integer default 0,
+  Ib integer default 0,
+  Zb integer default 0,
+  Eb integer default 0,
+  hr integer default 0,
+  r integer default 0,
+  rbi integer default 0,
+  hbp integer default 0,
+  so integer default 0,
+  hand integer NOT NULL
+);
+
+create index i_tsh_plyr_team_year_hand on t_stat_hitter (player_id,team_id,year,hand);

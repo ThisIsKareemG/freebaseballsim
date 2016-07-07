@@ -1,0 +1,20 @@
+CREATE TABLE t_stat_pitcher (
+  stat_id integer NOT NULL primary key autoincrement,
+  player_id integer NOT NULL,
+  team_id integer NOT NULL,
+  year integer NOT NULL,
+  g integer default 0,
+  outs integer default 0,
+  bb integer default 0,
+  h integer default 0,
+  r integer default 0,
+  er integer default 0,
+  hbp integer default 0,
+  so integer default 0,
+  w integer default 0,
+  l integer default 0,
+  sv integer default 0,
+  hand integer NOT NULL
+);
+
+create index i_tsp_plyr_team_year_hand on t_stat_pitcher (player_id,team_id,year,hand);

@@ -1,0 +1,6 @@
+CREATE TABLE t_user (
+	user_id integer NOT NULL primary key autoincrement,
+	username text NOT NULL,
+	password text,
+	ip integer
+);

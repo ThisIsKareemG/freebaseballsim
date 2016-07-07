@@ -1,0 +1,51 @@
+delimiter //
+DROP PROCEDURE IF EXISTS sp_select_stat_skill_pitcher_league//
+CREATE PROCEDURE sp_select_stat_skill_pitcher_league(
+p_league_id int,
+p_sort nvarchar(5)
+)
+BEGIN
+SELECT 
+first_name,
+last_name,
+sum(g)  as g,
+sum(w) as w,
+sum(l) as l,
+sum(sv) as sv,sum(outs) as outs,sum(h) as h,sum(bb) as bb,sum(r) as r,sum(er) as er,sum(so) as so,
+Round(er/(outs/27.0),2) as era, vel ,mov, ctrl, end, intelligence, energy
+FROM 
+t_player join t_team on
+t_player.team_id = t_team.team_id
+join t_stat_pitcher on 
+t_player.player_id = t_stat_pitcher.player_id
+join t_league on 
+t_team.league_id = t_league.league_id
+join t_skill_pitcher on 
+t_player.player_id = t_skill_pitcher.player_id
+WHERE t_team.league_id = p_league_id AND
+t_stat_pitcher.year = year(t_league.league_date)
+Group by t_stat_pitcher.player_id
+order by 
+Case p_sort 
+when 'W' then sum(w) 
+when 'SO' then sum(so)
+when 'SV' then sum(sv)
+when 'H' then sum(h)
+when 'BB' then sum(bb)
+when 'SO' then sum(so)
+when 'ER' then sum(er)
+when 'R' then sum(r)
+when 'L' then sum(l)
+when 'G' then sum(g)
+when 'VEL' then vel
+when 'MOV' then mov
+when 'CTRL' then ctrl
+when 'END' then end
+when 'INTEL' then intelligence
+when 'ENERGY' then energy
+else
+Round(er/(outs/27.0),2)  end
+desc;
+END;
+//
+delimiter ;

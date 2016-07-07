@@ -1,0 +1,13 @@
+CREATE TABLE t_team (
+  season_id integer NOT NULL primary key autoincrement,
+  team_id integer NOT NULL,
+  owner_id integer NOT NULL default 0,
+  year integer NOT NULL,
+  wins integer NOT NULL default 0,
+  loses integer NOT NULL default 0,
+  league_id integer NOT NULL,
+  division integer NOT NULL,
+  city text NOT NULL,
+  mascot text NOT NULL,
+  active integer NOT NULL default 1
+);

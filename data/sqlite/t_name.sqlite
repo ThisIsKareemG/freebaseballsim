@@ -1,0 +1,5 @@
+CREATE TABLE t_name (
+  name_id integer NOT NULL primary key autoincrement,
+  first text NOT NULL,
+  last text NOT NULL
+);

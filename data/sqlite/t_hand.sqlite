@@ -1,0 +1,4 @@
+CREATE TABLE t_hand (
+  hand_id integer NOT NULL primary key,
+  description text NOT NULL
+);

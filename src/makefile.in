@@ -1,0 +1,114 @@
+LDFLAGS=-L./
+LIBS=@LIBS@ -lm -ldata -llist
+CPPFLAGS=@CPPFLAGS@ -D_POSIX_SOURCE
+DB_OBJECT=@DB_OBJECT@
+CC=@CC@
+CPP=@CPP@
+LD=@CC@
+CFLAGS=@CFLAGS@ -ansi
+
+BIN = ../bin
+CFLAGS += -D_CONSISTENT_
+
+SCRIPTS=game_log.pl \
+	new_season.pl \
+	restart_league.pl \
+	sim_season.pl \
+	sim_game.pl \
+	sim_game.sh \
+	goals.pl \
+	init_sqlite.sh \
+	init_mysql.sh \
+	FBS-config.sh
+
+PROGS=generate_schedule \
+	create_player \
+	run_draft \
+	sim_game \
+	sim_day
+
+FBS_STATIC=liblist.a libdata.a
+DEPS=$(FBS_STATIC)
+optimize=1
+
+ifdef debugger
+	CFLAGS += -g
+	optimize=0
+endif
+ifdef profile
+	CFLAGS +=-fprofile-arcs -ftest-coverage
+	LDFLAGS +=-fprofile-arcs -ftest-coverage
+	optimize=0
+endif
+ifdef messages
+	CFLAGS += -DDEBUG
+endif
+
+ifdef debug-all
+	CFLAGS += -g -DDEBUG -D_PRINTQUERY_ -D_PRINTRANDOM_ -D_PRINTAB_
+endif
+
+ifdef march
+	CFLAGS += -march=$(march)
+endif
+
+ifdef profile
+	CFLAGS += -pg
+	LDFLAGS += -pg
+endif
+
+ifdef print-query
+	CFLAGS += -D_PRINTQUERY_
+endif
+ifdef print-random
+	CFLAGS += -D_PRINTRANDOM_
+endif
+ifdef print-ab
+	CFLAGS += -D_PRINTAB_
+endif
+
+ifdef debug-print
+	CFLAGS += -DDEBUG -D_PRINTQUERY_ -D_PRINTRANDOM_ -D_PRINTAB_ -D_PRINTPITCHINGCHANGES_
+endif
+ifdef speedy-debug
+	CFLAGS += -D_SPEEDY_DEBUG_
+endif
+ifeq ($(optimize),1)
+	CFLAGS += -O2
+endif
+ifdef print-pitching-changes
+	CFLAGS+= -D_PRINTPITCHINGCHANGES_
+endif
+ifdef print-newplayer
+	CFLAGS+= -D_PRINT_NEWPLAYER_
+endif	
+
+
+all: $(PROGS) 
+	cp $^ $(BIN)
+	cp $(SCRIPTS) $(BIN)
+
+generate_schedule: generate_schedule.o fbs_argp.o $(DB_OBJECT) $(DEPS)
+	$(LD) $(LDFLAGS) -o $@ generate_schedule.o fbs_argp.o $(DB_OBJECT) $(LIBS)
+
+create_player: create_player.o fbs_argp.o $(DB_OBJECT) $(DEPS)
+	$(LD) $(LDFLAGS) -o $@ create_player.o fbs_argp.o $(DB_OBJECT) $(LIBS)
+
+run_draft: run_draft.o draft_pref.o fbs_argp.o $(DB_OBJECT) $(DEPS)
+	$(LD) $(LDFLAGS) -o $@ run_draft.o draft_pref.o fbs_argp.o $(DB_OBJECT) $(LIBS)
+
+sim_game: sim_game.o sim_game_func.o $(DB_OBJECT) $(DEPS)
+	$(LD) $(LDFLAGS) -o $@ sim_game.o sim_game_func.o $(DB_OBJECT) $(LIBS)
+
+sim_day: sim_day.o sim_game_func.o fbs_argp.o $(DB_OBJECT) $(DEPS)
+	$(LD) $(LDFLAGS) -o $@ sim_day.o sim_game_func.o fbs_argp.o $(DB_OBJECT) $(LIBS)
+
+clean:
+	rm -f *.o *.a
+	rm $(PROGS)
+
+liblist.a: linked_list.o tom_array_list.o tom_array.o hash.o key_value.o
+	ar cru liblist.a $^
+
+libdata.a: baseball_data.o baseball_objects.o date.o tom_math.o db_object.o
+	ar cru libdata.a $^

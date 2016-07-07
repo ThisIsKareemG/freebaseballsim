@@ -1,0 +1,9 @@
+INSERT INTO t_league(league_id,league_name,league_date) VALUES(1,'Test','04-01-1900');
+INSERT INTO t_team(team_id,league_id,division,city,mascot,year) VALUES(1,1,0,'Boston','Red Sox',1900);
+INSERT INTO t_team(team_id,league_id,division,city,mascot,year) VALUES(2,1,0,'Chicago','Cubs',1900);
+INSERT INTO t_team(team_id,league_id,division,city,mascot,year) VALUES(8,1,0,'Toronto','Blue Jays',1900);
+INSERT INTO t_team(team_id,league_id,division,city,mascot,year) VALUES(7,1,0,'Cincinnati','Reds',1900);
+INSERT INTO t_team(team_id,league_id,division,city,mascot,year) VALUES(6,1,0,'Cleveland','Indians',1900);
+INSERT INTO t_team(team_id,league_id,division,city,mascot,year) VALUES(5,1,0,'Chicago','White Sox',1900);
+INSERT INTO t_team(team_id,league_id,division,city,mascot,year) VALUES(4,1,0,'Milwaukee','Brewers',1900);
+INSERT INTO t_team(team_id,league_id,division,city,mascot,year) VALUES(3,1,0,'Detroit','Tigers',1900);

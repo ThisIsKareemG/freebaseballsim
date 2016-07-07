@@ -1,0 +1,44 @@
+TEST RUN: 1214142549
+Seasons: 1
+Running create_player:
+league_id: 1
+number of players: 600
+hitter_mean: 50.000000
+hitter_sd: 22.500000
+pitcher_mean: 50.000000
+pitcher_sd: 22.500000
+Hitter: 1 Pitcher: 1 Exp: 1
+% time     seconds  usecs/call     calls      function
+------ ----------- ----------- --------- --------------------
+ 30.67   46.156354          53    859251 strtol
+ 21.73   32.695542        4618      7080 mysql_real_query
+  9.94   14.957622          49    304448 free
+  8.29   12.469718       19243       648 write
+  7.27   10.947039          35    306662 malloc
+  5.91    8.894618          51    172543 pow
+  4.51    6.789887          39    171461 rand
+  3.15    4.746173          30    156103 sprintf
+  2.96    4.457149          29    149023 strncpy
+  2.13    3.198265          45     70146 mysql_fetch_row
+  1.90    2.863221          53     53136 strcpy
+  1.14    1.718797          16    106164 calloc
+  0.15    0.224250      224250         1 wait
+  0.10    0.150730          37      4050 mysql_store_result
+  0.06    0.090661          22      4050 mysql_free_result
+  0.04    0.064592          18      3402 mysql_next_result
+  0.02    0.031638       31638         1 fork
+  0.01    0.011492          17       648 memset
+  0.00    0.006143        6143         1 close
+  0.00    0.004951        4951         1 mysql_real_connect
+  0.00    0.003113        3113         1 mysql_init
+  0.00    0.000396          99         4 fprintf
+  0.00    0.000092          18         5 getopt_long
+  0.00    0.000080          80         1 fscanf
+  0.00    0.000065          21         3 strtod
+  0.00    0.000056          56         1 fclose
+  0.00    0.000038          38         1 pipe
+  0.00    0.000038          38         1 fopen
+  0.00    0.000025          25         1 srand
+  0.00    0.000019          19         1 getpid
+------ ----------- ----------- --------- --------------------
+100.00  150.482764               2368838 total

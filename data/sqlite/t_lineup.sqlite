@@ -1,0 +1,8 @@
+CREATE TABLE t_lineup (
+  lineup_id integer NOT NULL primary key autoincrement,
+  team_id integer NOT NULL,
+  player_id integer NOT NULL,
+  bat_order integer NOT NULL,
+  position integer NOT NULL,
+  hand integer NOT NULL
+);

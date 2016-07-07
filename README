@@ -1,0 +1,44 @@
+Free Baseball Simulator
+by Tom Stellard <freebaseballsim-mail@lists.sourceforge.net>
+
+The Free Baseball Simulator contains a suite of programs that can be
+used to simulate baseball games.  The simulator is able to simulate
+complete seasons with no obvious bugs.  There is an experimental GUI
+program called fbs-gtk that will help you to run simulations and view
+statistics.  However, if you want to  make use of all of the features
+of Free Baseball Simulator, you should use the command line tools.
+The easiest way to do this is with the goals.pl script found in the bin
+directory. You can run goals.pl like this:
+
+perl goals.pl 1 --regression  --db=sqlite
+
+1 is the number of seasons to simulate
+--regression uses 1 to seed seed the random number generator to keep results
+consistent.
+--db=sqlite tells it to use sqlite as the database, if you compiled with mysql
+support use --db=mysql for more information about how to setup the databases
+read the INSTALL file.
+
+Other Options:
+--slow		This will save boxscores in the database and reacord team wins
+		and loses.
+
+--html		Save boxscores in html format, so they can be displayed on web
+		pages.
+
+When this script is complete it will dump stats from the simulations and
+compare it with statistics from real MLB seasons.
+
+If you look at the stats and think they are not realistic, you can always
+edit the simulator code, recompile and run again.  The simplest way to modify
+the simulator is to open the src/sim_game_func.c file and make changes to
+the sim_ab function.
+
+If you see any errors, make sure you have read the INSTALL file, and
+if you are still having problems send an email to the mailing list:
+freebaseballsim-mail@lists.sourceforge.net I am more than happy to help
+you out.  In fact, if you use this program at all send me an e-mail and tell
+me what you think.  Patches are especially welcome.
+
+Development of Free Baseball Simulator is just beginning, so check back
+often for updates.

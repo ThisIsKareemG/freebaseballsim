@@ -1,0 +1,69 @@
+C  1
+1B 1
+2B 3
+3B 4
+SS 5
+LF 6
+CF 7
+RF 8
+SP 9
+^^^^^
+Error
+-----
+1B 1
+1B 2
+2B 3
+3B 4
+SS 5
+LF 6
+CF 7
+RF 8
+SP 9
+^^^^^
+Error
+-----
+C  1
+Bench  2
+2B 3
+3B 4
+SS 5
+LF 6
+CF 7
+RF 8
+SP 9
+^^^^^
+Error
+-----
+C  1
+1B Bench
+2B 3
+3B 4
+SS 5
+LF 6
+CF 7
+RF 8
+SP 9
+^^^^^
+Error
+-----
+C  Bench
+1B Bench
+2B Bench
+3B Bench
+SS Bench
+LF Bench
+CF Bench
+RF Bench
+SP Bench
+Bench 1
+Bench 2
+Bench 3
+Bench 4
+Bench 5
+Bench 6
+Bench 7
+Bench 8
+Bench 9
+^^^^^
+Error
+-----

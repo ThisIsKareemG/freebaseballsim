@@ -1,0 +1,9 @@
+CREATE TABLE t_boxscore (
+	boxscore_id integer NOT NULL primary key autoincrement,
+	home_id integer NOT NULL,
+	away_id integer NOT NULL,
+	game integer NOT NULL,
+	league_date text,
+	boxscore text NOT NULL,
+	playbyplay text NOT NULL
+);

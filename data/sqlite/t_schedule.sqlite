@@ -1,0 +1,7 @@
+CREATE TABLE t_schedule (
+  schedule_id integer NOT NULL primary key autoincrement,
+  league_id integer NOT NULL,
+  game_number integer NOT NULL,
+  home_id integer NOT NULL,
+  away_id integer NOT NULL
+);

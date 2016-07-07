@@ -1,0 +1,7 @@
+CREATE TABLE t_rotation (
+  rotation_id integer NOT NULL primary key autoincrement,
+  team_id integer NOT NULL,
+  player_id integer NOT NULL,
+  position integer NOT NULL,
+  next_starter integer NOT NULL default 0
+);

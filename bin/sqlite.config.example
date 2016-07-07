@@ -1,0 +1,2 @@
+master=/path/to/data/sqlite/baseball.db
+benchmark=/path/to/data/sqlite/real_baseball.db

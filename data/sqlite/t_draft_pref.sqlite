@@ -1,0 +1,7 @@
+CREATE TABLE t_draft_pref (
+  draft_pref_id integer NOT NULL primary key autoincrement,
+  team_id integer NOT NULL,
+  position integer NOT NULL,
+  player_id integer NOT NULL,
+  rank integer NOT NULL
+);

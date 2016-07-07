@@ -1,0 +1,15 @@
+create table t_player (
+  player_id integer NOT NULL primary key autoincrement,
+  team_id integer NOT NULL,
+  league_id integer NOT NULL,
+  first_name text NOT NULL,
+  last_name text NOT NULL,
+  position integer NOT NULL,
+  dob text NOT NULL,
+  intelligence integer NOT NULL,
+  health integer NOT NULL,
+  bats integer NOT NULL,
+  throws integer NOT NULL,
+  status integer NOT NULL,
+  overall integer NOT NULL
+);

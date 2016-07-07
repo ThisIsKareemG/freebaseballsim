@@ -1,0 +1,4 @@
+CREATE TABLE t_player_status (
+  status_id integer NOT NULL primary key,
+  description text NOT NULL
+);

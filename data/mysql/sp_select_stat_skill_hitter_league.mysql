@@ -1,0 +1,46 @@
+delimiter //
+DROP PROCEDURE IF EXISTS sp_select_stat_skill_hitter_league//
+CREATE PROCEDURE sp_select_stat_skill_hitter_league(
+p_league_id int,
+p_sort nvarchar(5)
+)
+BEGIN
+SELECT first_name,last_name,sum(g) ,sum(ab) as ab,sum(h) as h,sum(r) as r,sum(ZB) as ZB,sum(EB) as EB,sum(hr) as hr,sum(rbi) as rbi,sum(so) as so,sum(bb) as bb, round(sum(h)/sum(ab),3) as ba
+,cvr,pvr,cvl,pvl,spd,intelligence
+FROM 
+t_player join t_team on
+t_player.team_id = t_team.team_id
+join t_stat_hitter on 
+t_player.player_id = t_stat_hitter.player_id
+join t_league on 
+t_team.league_id = t_league.league_id
+join t_skill_hitter on 
+t_player.player_id = t_skill_hitter.player_id
+WHERE t_team.league_id = p_league_id AND
+t_stat_hitter.year = year(t_league.league_date) and
+t_team.active = 1
+Group by t_stat_hitter.player_id
+order by 
+Case p_sort 
+when 'BA' then round(sum(h)/sum(ab),3)
+when 'HR' then sum(hr) 
+when 'RBI' then sum(rbi)
+when 'R' then sum(r)
+when 'H' then sum(h)
+when 'BB' then sum(bb)
+when 'SO' then sum(so)
+when '2B' then sum(ZB)
+when '3B' then sum(EB)
+when 'AB' then sum(ab)
+when 'CVR' then cvr
+when 'PVR' then pvr
+when 'CVL' then cvl
+when 'PVL' then pvl
+when 'SPD' then spd
+when 'INTEL' then intelligence
+else
+round(sum(h)/sum(ab),3) end
+desc;
+END;
+//
+delimiter ;

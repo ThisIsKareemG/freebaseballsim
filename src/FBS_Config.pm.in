@@ -1,0 +1,8 @@
+
+use strict;
+package FBS_Config;
+
+our $STATDESC = @PERL_STAT_DESC@;
+our $CGI = @PERL_CGI@;
+
+1;

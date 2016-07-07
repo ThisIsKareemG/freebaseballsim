@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS t_boxscore;
+CREATE TABLE t_boxscore (
+	boxscore_id int(11) NOT NULL auto_increment,
+	home_id int(11) NOT NULL,
+	away_id int(11) NOT NULL,
+	game int(11) NOT NULL,
+	league_date date,
+	boxscore text(2000),
+	playbyplay text(5000),
+	PRIMARY KEY(boxscore_id)
+);

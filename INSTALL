@@ -1,0 +1,136 @@
+REQUIRED DEPENDENCIES:
+-autoconf
+-perl
+-perl modules:
+	=DBI
+
+DATABASE DEPENDENCIES:
+For SQLite:
+	-sqlite3 (Any recent version that is not 3.5.9 should work see below for more info.)
+	-perl modules
+		=DBD-SQLite
+
+For MySQL:
+	-mysql v5.0+ (It might work with older versions of mysql, but I haven't tried it)
+	-perl modules:
+		=DBD-mysql
+	
+OPTIONAL DEPENDENCIES:	
+-perl modules:
+	=Statistics-Descriptive (This is optional, but highly recommended for
+		better simulation analysis.)
+	=CGI (I think most distros have this installed by default)
+-gtk
+
+How to install dependencies:
++Ubuntu/Debian: apt-get install sqlite3 libsqlite3-dev libdbd-sqlite3-perl libdbd-mysql-perl mysql-server libmysqlclient15-dev libstatistics-descriptive-perl libgsl0-dev autoconf
+	
+	sqlite-3.5.9 has a bug with some of the math functions that prevent Free
+	Baseball Simulator from simulating more than 1 season at a time.  If you
+	are using Ubuntu/Debian and your version of sqlite is >= 3.5.9 and 
+	< 3.5.9-5 you need to download libsqlite3-0_3.5.9-5_i386.deb from here: 
+	http://packages.debian.org/lenny/i386/libsqlite3-0/download and
+	libsqlite3-dev_3.5.9-5_i386.deb from here:
+	http://packages.debian.org/lenny/i386/libsqlite3-dev/download
+	then install it with:
+	dpkg -i libsqlite3-0_3.5.9-5_i386.deb libsqlite3-dev_3.5.9-5_i386.deb
+
++Gentoo: emerge -av sqlite DBD-SQLite DBD-mysql mysql Statistics-Descriptive gsl autoconf
+
+===== GUI (experimental) =====
+
+If you want to use the GUI, you will need to build it manually and make sure
+you have gtk installed.  The configure script does not check for gtk at the
+moment.  To install the GUI, do the following:
+
+fbs@server$ cd src
+fbs@server$ ./configure
+fbs@server$ make
+fbs@server$ cd gtk
+fbs@server$ make
+
+This will build the program fbs-gtk and install it in the bin directory.
+No database setup is needed to use fbs-gtk.
+
+===== Regular Setup =====
+
+There are currently 2 databases supported by Free Baseball Simulator
+sqlite and mysql.  Both databases work well, but it is recommended that
+you use sqlite since it is easier to setup.
+
+To install with sqlite do the following:
+
+1. Navigate to src directory and run the configure script and make.
+fbs@server$ cd src
+fbs@server$ autoconf
+fbs@server$ ./configure --enable-db=sqlite
+fbs@server$ make
+
+2. Navigate to the bin directory and run the init_sqlite.sh script
+fbs@server$ cd ../bin
+fbs@server$ bash init_sqlite.sh
+
+Now you should be able to use Free Baseball Simulator.  See README file for
+more information about using the simulator.
+
+To install with mysql do the following:
+
+1. Navigate to the source directory and run make
+fbs@server$ cd src
+fbs@server$ autoconf
+fbs@server$ ./configure --enable-db=mysql
+fbs@server$ make
+
+2. Navigate to bin directory and create a mysql config file.  You can use
+mysql.config.example as an example.
+NOTE: The config file you create must be called mysql.config
+fbs@server$ cd ../bin 
+fbs@server$ cp mysql.config.example mysql.config
+fbs@server$ vim mysql.config
+
+3. Run the init_mysql.sh script.
+fbs@server$ bash init_mysql.sh
+
+Now you should be able to use Free Baseball Simulator.  See README file for
+more information.  
+
+==========================================================================
+
+If you have problems, you can try and setup the mysql database manually like this:
+
+1. Navigate to the source directory and run make
+fbs@server$ cd src
+fbs@server$ make mysql=1
+
+2. Connect to your mysql server and create two new databases.  One will be for
+the simulator and one will be to store the benchmark stats.  I usually call them
+baseball and real_baseball.
+fbs@server$ mysql -u user -p
+mysql> create database simulator_dbname;
+mysql> create database benchmark_dbname;
+
+3. Run the mysql scripts to create the database tables.
+For the simulator database (I call this one baseball) run these scripts in this
+order. 
+mysql> use baseball;
+mysql> \. /path/to/fbs/data/mysql/schema.mysql
+mysql> \. /path/to/fbs/data/mysql/names.mysql
+mysql> \. /path/to/fbs/data/mysql/test_league.mysql
+
+For the benchmark database (I call this one real_baseball) run this script.
+
+mysql> use real_baseball;
+mysql> \. /path/to/fbs/data/mysql/real_baseball.mysql
+
+4. Navigate to bin directory and create a mysql config file.  You can use
+mysql.config.example as an example.
+NOTE: The config file you create must be called mysql.config
+fbs@server$ cd ../bin 
+fbs@server$ cp mysql.config.example mysql.config
+fbs@server$ vim mysql.config
+
+5. Stay in the bin directory and run the generate_schedule program.
+fbs@server$ ./generate_schedule
+
+Now you should be able to use Free Baseball Simulator.  See README file for
+more information.

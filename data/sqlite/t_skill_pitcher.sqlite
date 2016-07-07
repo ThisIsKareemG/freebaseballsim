@@ -1,0 +1,10 @@
+CREATE TABLE t_skill_pitcher (
+  skill_id integer NOT NULL primary key autoincrement,
+  player_id integer NOT NULL unique,
+  vel integer NOT NULL,
+  mov integer NOT NULL,
+  ctrl integer NOT NULL,
+  end integer NOT NULL,
+  energy integer NOT NULL,
+  batters_left integer NOT NULL
+);

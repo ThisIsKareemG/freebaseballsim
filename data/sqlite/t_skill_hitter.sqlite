@@ -1,0 +1,10 @@
+CREATE TABLE t_skill_hitter (
+  skill_id integer NOT NULL primary key autoincrement,
+  player_id integer NOT NULL unique,
+  cvr integer NOT NULL,
+  pvr integer NOT NULL,
+  cvl integer NOT NULL,
+  pvl integer NOT NULL,
+  spd integer NOT NULL,
+  energy integer NOT NULL
+);

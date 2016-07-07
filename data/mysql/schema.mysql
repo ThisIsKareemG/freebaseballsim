@@ -1,0 +1,411 @@
+-- MySQL dump 10.11
+--
+-- Host: localhost    Database: baseball
+-- ------------------------------------------------------
+-- Server version	5.0.70-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `t_draft`
+--
+
+DROP TABLE IF EXISTS `t_draft`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_draft` (
+  `draft_id` int(11) NOT NULL auto_increment,
+  `year` int(11) NOT NULL,
+  `team_id` int(11) NOT NULL,
+  `player_id` int(11) NOT NULL,
+  `round` int(11) NOT NULL,
+  `pick` int(11) NOT NULL,
+  PRIMARY KEY  (`draft_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `t_draft_pref`
+--
+
+DROP TABLE IF EXISTS `t_draft_pref`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_draft_pref` (
+  `draft_pref_id` int(11) NOT NULL auto_increment,
+  `team_id` int(11) NOT NULL,
+  `position` int(11) NOT NULL,
+  `player_id` int(11) NOT NULL,
+  `rank` int(11) NOT NULL,
+  PRIMARY KEY  (`draft_pref_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `t_hand`
+--
+
+DROP TABLE IF EXISTS `t_hand`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_hand` (
+  `hand_id` int(11) NOT NULL,
+  `description` varchar(10) NOT NULL,
+  PRIMARY KEY  (`hand_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `t_league`
+--
+
+DROP TABLE IF EXISTS `t_league`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_league` (
+  `league_id` int(11) NOT NULL auto_increment,
+  `league_name` varchar(15) NOT NULL,
+  `league_date` date NOT NULL,
+  PRIMARY KEY  (`league_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `t_lineup`
+--
+
+DROP TABLE IF EXISTS `t_lineup`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_lineup` (
+  `lineup_id` int(11) NOT NULL auto_increment,
+  `team_id` int(11) NOT NULL,
+  `player_id` int(11) NOT NULL,
+  `bat_order` int(11) NOT NULL,
+  `position` int(11) NOT NULL,
+  `hand` int(11) NOT NULL,
+  PRIMARY KEY  (`lineup_id`),
+  KEY `i_lineup_team_id` (`team_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `t_name`
+--
+
+DROP TABLE IF EXISTS `t_name`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_name` (
+  `id` int(11) NOT NULL auto_increment,
+  `first` varchar(20) default NULL,
+  `last` varchar(20) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `t_player`
+--
+
+DROP TABLE IF EXISTS `t_player`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_player` (
+  `player_id` int(11) NOT NULL auto_increment,
+  `team_id` int(11) NOT NULL,
+  `league_id` int(11) NOT NULL,
+  `first_name` varchar(15) NOT NULL,
+  `last_name` varchar(15) NOT NULL,
+  `position` int(11) NOT NULL,
+  `dob` date NOT NULL,
+  `intelligence` int(11) NOT NULL,
+  `health` int(11) NOT NULL,
+  `bats` int(11) NOT NULL,
+  `throws` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `overall` int(11) default NULL,
+  PRIMARY KEY  (`player_id`),
+  KEY `team_id` (`team_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `t_player_status`
+--
+
+DROP TABLE IF EXISTS `t_player_status`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_player_status` (
+  `status_id` int(11) NOT NULL,
+  `description` varchar(15) NOT NULL,
+  PRIMARY KEY  (`status_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `t_rotation`
+--
+
+DROP TABLE IF EXISTS `t_rotation`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_rotation` (
+  `rotation_id` int(11) NOT NULL auto_increment,
+  `team_id` int(11) NOT NULL,
+  `player_id` int(11) NOT NULL,
+  `position` int(11) NOT NULL,
+  `next_starter` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`rotation_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `t_schedule`
+--
+
+DROP TABLE IF EXISTS `t_schedule`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_schedule` (
+  `schedule_id` int(11) NOT NULL auto_increment,
+  `league_id` int(11) NOT NULL,
+  `game_number` int(11) NOT NULL,
+  `home_id` int(11) NOT NULL,
+  `away_id` int(11) NOT NULL,
+  PRIMARY KEY  (`schedule_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `t_skill_fielder`
+--
+
+DROP TABLE IF EXISTS `t_skill_fielder`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_skill_fielder` (
+  `skill_id` int(11) NOT NULL auto_increment,
+  `player_id` int(11) NOT NULL,
+  `range` int(11) NOT NULL,
+  `arm` int(11) NOT NULL,
+  `field` int(11) NOT NULL,
+  `one` double NOT NULL,
+  `two` double NOT NULL,
+  `three` double NOT NULL,
+  `four` double NOT NULL,
+  `five` double NOT NULL,
+  `six` double NOT NULL,
+  `seven` double NOT NULL,
+  `eight` double NOT NULL,
+  `nine` double NOT NULL,
+  PRIMARY KEY  (`skill_id`),
+  KEY `t_skill_fielder_player_id` (`player_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `t_skill_hitter`
+--
+
+DROP TABLE IF EXISTS `t_skill_hitter`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_skill_hitter` (
+  `skill_id` int(11) NOT NULL auto_increment,
+  `player_id` int(11) NOT NULL,
+  `cvr` int(11) NOT NULL,
+  `pvr` int(11) NOT NULL,
+  `cvl` int(11) NOT NULL,
+  `pvl` int(11) NOT NULL,
+  `spd` int(11) NOT NULL,
+  `energy` int(11) NOT NULL,
+  PRIMARY KEY  (`skill_id`),
+  KEY `t_skill_hitter_player_id` (`player_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `t_skill_pitcher`
+--
+
+DROP TABLE IF EXISTS `t_skill_pitcher`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_skill_pitcher` (
+  `skill_id` int(11) NOT NULL auto_increment,
+  `player_id` int(11) NOT NULL,
+  `vel` int(11) NOT NULL,
+  `mov` int(11) NOT NULL,
+  `ctrl` int(11) NOT NULL,
+  `end` int(11) NOT NULL,
+  `energy` int(11) NOT NULL,
+  `batters_left` int(11) NOT NULL,
+  PRIMARY KEY  (`skill_id`),
+  UNIQUE KEY `t_skill_pitcher_player_id` (`player_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `t_stat_fielder`
+--
+
+DROP TABLE IF EXISTS `t_stat_fielder`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_stat_fielder` (
+  `stat_id` int(11) NOT NULL auto_increment,
+  `player_id` int(11) NOT NULL,
+  `team_id` int(11) NOT NULL,
+  `year` int(11) NOT NULL,
+  `a` int(11) NOT NULL,
+  `po` int(11) NOT NULL,
+  `e` int(11) NOT NULL,
+  `dp` int(11) NOT NULL,
+  `good` int(11) NOT NULL,
+  `bad` int(11) NOT NULL,
+  `cs` int(11) NOT NULL,
+  `sb` int(11) NOT NULL,
+  `pos` int(11) NOT NULL,
+  PRIMARY KEY  (`stat_id`),
+  KEY `i_tsf_plyr_team_year_pos` (`player_id`,`team_id`,`year`,`pos`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `t_stat_hitter`
+--
+
+DROP TABLE IF EXISTS `t_stat_hitter`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_stat_hitter` (
+  `stat_id` int(11) NOT NULL auto_increment,
+  `player_id` int(11) NOT NULL,
+  `team_id` int(11) NOT NULL,
+  `year` int(11) NOT NULL,
+  `g` int(11) NOT NULL,
+  `ab` int(11) NOT NULL,
+  `bb` int(11) NOT NULL,
+  `h` int(11) NOT NULL,
+  `IB` int(11) NOT NULL,
+  `ZB` int(11) NOT NULL,
+  `EB` int(11) NOT NULL,
+  `hr` int(11) NOT NULL,
+  `r` int(11) NOT NULL,
+  `rbi` int(11) NOT NULL,
+  `hbp` int(11) NOT NULL,
+  `so` int(11) NOT NULL,
+  `hand` int(11) NOT NULL,
+  PRIMARY KEY  (`stat_id`),
+  KEY `i_tsh_plyr_team_year_hand` (`player_id`,`team_id`,`year`,`hand`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `t_stat_pitcher`
+--
+
+DROP TABLE IF EXISTS `t_stat_pitcher`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_stat_pitcher` (
+  `stat_id` int(11) NOT NULL auto_increment,
+  `player_id` int(11) NOT NULL,
+  `team_id` int(11) NOT NULL,
+  `year` int(11) NOT NULL,
+  `g` int(11) NOT NULL,
+  `outs` int(11) NOT NULL,
+  `bb` int(11) NOT NULL,
+  `h` int(11) NOT NULL,
+  `r` int(11) NOT NULL,
+  `er` int(11) NOT NULL,
+  `hbp` int(11) NOT NULL,
+  `so` int(11) NOT NULL,
+  `w` int(11) NOT NULL,
+  `l` int(11) NOT NULL,
+  `sv` int(11) NOT NULL,
+  `hand` int(11) NOT NULL,
+  PRIMARY KEY  (`stat_id`),
+  KEY `i_tsp_plyr_team_year_hand` (`player_id`,`team_id`,`year`,`hand`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `t_team`
+--
+
+DROP TABLE IF EXISTS `t_team`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_team` (
+  `season_id` int(11) NOT NULL auto_increment,
+  `team_id` int(11) NOT NULL,
+  `owner_id` int(11) NOT NULL default '0',
+  `year` int(11) NOT NULL,
+  `wins` int(11) NOT NULL default '0',
+  `loses` int(11) NOT NULL default '0',
+  `league_id` int(11) NOT NULL,
+  `division` int(11) NOT NULL,
+  `city` varchar(15) NOT NULL,
+  `mascot` varchar(15) NOT NULL,
+  `active` int(1) NOT NULL default '1',
+  PRIMARY KEY  (`season_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `t_test_result`
+--
+
+DROP TABLE IF EXISTS `t_test_result`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `t_test_result` (
+  `test_result_id` int(11) NOT NULL auto_increment,
+  `hitter_mean` int(11) NOT NULL,
+  `hitter_sd` double NOT NULL,
+  `pitcher_mean` int(11) NOT NULL,
+  `pitcher_sd` double NOT NULL,
+  `hitter_modifier` double NOT NULL,
+  `pitcher_modifier` double NOT NULL,
+  `ab_exponent` double NOT NULL,
+  `h_percent` double NOT NULL,
+  `ba_mean` double NOT NULL,
+  `ba_sd` double NOT NULL,
+  `ba_max` int(11) NOT NULL,
+  `hr_percent` double NOT NULL,
+  `hr_mean` double NOT NULL,
+  `hr_sd` double NOT NULL,
+  `hr_max` int(11) NOT NULL,
+  `3b_percent` double NOT NULL,
+  `3b_mean` double NOT NULL,
+  `3b_sd` double NOT NULL,
+  `3b_max` int(11) NOT NULL,
+  `2b_percent` double NOT NULL,
+  `2b_mean` double NOT NULL,
+  `2b_sd` double NOT NULL,
+  `2b_max` int(11) NOT NULL,
+  `bb_percent` double NOT NULL,
+  `bb_mean` double NOT NULL,
+  `bb_sd` double NOT NULL,
+  `bb_max` int(11) NOT NULL,
+  `so_percent` double NOT NULL,
+  `so_mean` double NOT NULL,
+  `so_sd` double NOT NULL,
+  `so_max` int(11) NOT NULL,
+  `test_run_id` int(11) NOT NULL,
+  PRIMARY KEY  (`test_result_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+

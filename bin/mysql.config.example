@@ -1,0 +1,8 @@
+host=127.0.0.1
+username=user
+password=password
+#0 means use the default mysql port.
+port=0
+#You can name your databases whatever you want.
+master=baseball
+benchmark=real_baseball

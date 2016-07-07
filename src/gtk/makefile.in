@@ -1,0 +1,25 @@
+LDFLAGS=-L../
+LIBS=@LIBS@ -lm -ldata -llist `pkg-config --libs gtk+-2.0`
+CPPFLAGS=@CPPFLAGS@ -D_POSIX_SOURCE
+DB_OBJECT=@DB_OBJECT@
+CC=@CC@
+CPP=@CPP@
+LD=@CC@
+CFLAGS=@CFLAGS@ -ansi -I../
+
+BIN = ../../bin
+
+ifdef debugger
+	CFLAGS += -g
+endif
+
+fbs-gtk: gtk.o roster_page.o setup_page.o standings_page.o simulate_page.o \
+	stats_page.o gtk_util.o ../$(DB_OBJECT)
+	$(LD) $(LDFLAGS) -o $@ $^ $(LIBS)
+	mv $@ ../../bin
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) `pkg-config --cflags gtk+-2.0` -c -o $@ $^
+
+clean:
+	rm -f *.o *.a

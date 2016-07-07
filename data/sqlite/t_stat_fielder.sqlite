@@ -1,0 +1,17 @@
+CREATE TABLE t_stat_fielder (
+  stat_id integer NOT NULL primary key autoincrement,
+  player_id integer NOT NULL,
+  team_id integer NOT NULL,
+  year integer NOT NULL,
+  a integer default 0,
+  po integer default 0,
+  e integer default 0,
+  dp integer default 0,
+  good integer default 0,
+  bad integer default 0,
+  cs integer default 0,
+  sb integer default 0,
+  pos integer default 0
+);
+
+create index i_tsf_plyr_team_year_pos on t_stat_fielder (player_id,team_id,year,pos);

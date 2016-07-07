@@ -1,0 +1,31 @@
+AUTHOR: Tom
+
+This document describes the baseball description language that is processed by game_log.pl
+
+|ID| signifies a variable with the name ID.
+[.] signifies and optional parameter.
+
+##########
+Run Scored:
+@|player-id|>|pitcher-id|[.]
+
+. Denotes earned run
+
+EXAMPLES:
+Player 1 scores an earned run charged to pitcher 20.
+@1>20.
+
+Player 1 scores an unearned run charged to pitcher 20.
+@1>20
+
+##########
+At Bat:
+#|pitcher-id||pitcher-hand|>|hitter-id||hitter-hand|>|result|fielder-id[+/_]-|fielder-id|
+
++ Denotes good play
+_ Denotes bad play
+
+EXAMPLES:
+Right handed pitcher 20 pitches to right handed hitter 9 who grounds out player 12 to player 17.
+#20R>9R>G>12-17
+

@@ -1,0 +1,11 @@
+DELETE FROM t_player;
+DELETE FROM t_skill_fielder;
+DELETE FROM t_skill_hitter;
+DELETE FROM t_skill_pitcher;
+DELETE FROM t_stat_fielder;
+DELETE FROM t_stat_hitter;
+DELETE FROM t_stat_pitcher;
+DELETE FROM t_lineup;
+DELETE FROM t_rotation;
+DELETE FROM t_draft_pref;
+DELETE FROM t_draft;

@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS t_user;
+CREATE TABLE t_user (
+	user_id int(11) NOT NULL auto_increment,
+	username varchar(20) NOT NULL,
+	password varchar(43) NOT NULL,
+	ip int NOT NULL,
+	PRIMARY KEY(user_id)
+);

@@ -1,0 +1,8 @@
+CREATE TABLE t_draft (
+  draft_id integer NOT NULL primary key autoincrement,
+  year integer NOT NULL,
+  team_id integer NOT NULL,
+  player_id integer NOT NULL,
+  round int integer NOT NULL,
+  pick int integer NOT NULL
+);
